@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "gvm",
+  "version": "0.0.1",
+  "builtin-baseline": "ce1916404fc6f2b645f419a6d47b7ebafe686582",
+  "description": "emulator for microGPU",
+  "dependencies": [
+    "fmt",
+    "gtest",
+    "glog",
+    "benchmark",
+    "elfio"
+  ]
+  
+}
