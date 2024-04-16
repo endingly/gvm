@@ -19,11 +19,17 @@ uint16_t bfloat16::truncate_float_to_bfloat16(float f) {
 bfloat16::bfloat16(float f) : data(float_to_bfloat16(f)) {}
 
 bfloat16::bfloat16(float f, move_type mode) {
-  this->move_mode = mode;
   if (mode == move_type::truncate)
     data = truncate_float_to_bfloat16(f);
   else
     data = float_to_bfloat16(f);
 }
+
+bfloat16::operator float() const {
+  uint32_t u = static_cast<uint32_t>(data) << 16;
+  return *reinterpret_cast<float*>(&u);
+}
+
+bfloat16::operator bool() const { return data & 0x7fff; }
 
 }  // namespace gvm
