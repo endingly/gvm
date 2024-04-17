@@ -36,7 +36,7 @@
 */
 
 #pragma once
-#define GVM_HOST_DEVICE inline
+
 #ifdef __GNUC__
 // Ignore checks on reinterpret-casts that are being used for bitcasts.
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
@@ -52,6 +52,7 @@
 #include <limits>
 
 #include "half.hpp"
+#define GVM_HOST_DEVICE inline
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace gvm {
@@ -373,7 +374,7 @@ struct alignas(1) float_e4m3_t : float8_base<FloatEncoding::E4M3> {
 
   /// FP16 -> E5M2 conversion - rounds to nearest even
   GVM_HOST_DEVICE
-  static float_e4m3_t from_half(half const& flt) {
+  static float_e4m3_t from_half(half_float::half const& flt) {
 #if defined(CUDA_PTX_FP8_CVT_ENABLED)
     uint16_t tmp  = 0;
     uint32_t bits = reinterpret_cast<uint16_t const&>(flt);
@@ -383,13 +384,14 @@ struct alignas(1) float_e4m3_t : float8_base<FloatEncoding::E4M3> {
 
     return *reinterpret_cast<float_e4m3_t*>(&tmp);
 #else
-    return bitcast(Base::convert_float_to_fp8(__half2float(flt)));
+    return bitcast(
+        Base::convert_float_to_fp8(half_float::detail::half2float<float>(flt)));
 #endif
   }
 
   // E4M3 -> half
   GVM_HOST_DEVICE
-  static half to_half(float_e4m3_t const& x) {
+  static half_float::half to_half(float_e4m3_t const& x) {
 #if defined(CUDA_PTX_FP8_CVT_ENABLED)
     uint16_t bits = x.storage;
     uint32_t packed;
@@ -397,7 +399,10 @@ struct alignas(1) float_e4m3_t : float8_base<FloatEncoding::E4M3> {
 
     return reinterpret_cast<half2 const&>(packed).x;
 #else
-    return __float2half(Base::convert_fp8_to_float(x.storage));
+    auto tmp = Base::convert_fp8_to_float(x.storage);
+    auto flt = half_float::detail::float2half<
+        std::float_round_style::round_to_nearest>(tmp);
+    return half_float::half(flt);
 #endif
   }
 
@@ -436,7 +441,7 @@ struct alignas(1) float_e4m3_t : float8_base<FloatEncoding::E4M3> {
   explicit float_e4m3_t(float x) { storage = from_float(x).storage; }
 
   GVM_HOST_DEVICE
-  explicit float_e4m3_t(half x) { storage = from_half(x).storage; }
+  explicit float_e4m3_t(half_float::half x) { storage = from_half(x).storage; }
 
   /// Floating point conversion
   GVM_HOST_DEVICE
@@ -468,7 +473,7 @@ struct alignas(1) float_e4m3_t : float8_base<FloatEncoding::E4M3> {
 
   /// Converts to half
   GVM_HOST_DEVICE
-  operator half() const { return to_half(*this); }
+  operator half_float::half() const { return to_half(*this); }
 
   /// Converts to float
   GVM_HOST_DEVICE
@@ -562,7 +567,7 @@ struct alignas(1) float_e5m2_t : float8_base<FloatEncoding::E5M2> {
 
   /// FP16 -> E5M2 conversion - rounds to nearest even
   GVM_HOST_DEVICE
-  static float_e5m2_t from_half(half const& flt) {
+  static float_e5m2_t from_half(half_float::half const& flt) {
 #if defined(CUDA_PTX_FP8_CVT_ENABLED)
     uint16_t tmp  = 0;
     uint32_t bits = reinterpret_cast<uint16_t const&>(flt);
@@ -572,13 +577,14 @@ struct alignas(1) float_e5m2_t : float8_base<FloatEncoding::E5M2> {
 
     return *reinterpret_cast<float_e5m2_t*>(&tmp);
 #else
-    return bitcast(Base::convert_float_to_fp8(__half2float(flt)));
+    return bitcast(
+        Base::convert_float_to_fp8(half_float::detail::half2float<float>(flt)));
 #endif
   }
 
   // E5M2 -> half
   GVM_HOST_DEVICE
-  static half to_half(float_e5m2_t const& x) {
+  static half_float::half to_half(float_e5m2_t const& x) {
 #if defined(CUDA_PTX_FP8_CVT_ENABLED)
     uint16_t bits = x.storage;
     uint32_t packed;
@@ -586,7 +592,10 @@ struct alignas(1) float_e5m2_t : float8_base<FloatEncoding::E5M2> {
 
     return reinterpret_cast<half2 const&>(packed).x;
 #else
-    return __float2half(Base::convert_fp8_to_float(x.storage));
+    auto tmp = Base::convert_fp8_to_float(x.storage);
+    auto flt = half_float::detail::float2half<
+        std::float_round_style::round_to_nearest>(tmp);
+    return half_float::half(flt);
 #endif
   }
 
@@ -625,7 +634,7 @@ struct alignas(1) float_e5m2_t : float8_base<FloatEncoding::E5M2> {
   explicit float_e5m2_t(float x) { storage = from_float(x).storage; }
 
   GVM_HOST_DEVICE
-  explicit float_e5m2_t(half x) { storage = from_half(x).storage; }
+  explicit float_e5m2_t(half_float::half x) { storage = from_half(x).storage; }
 
   /// Floating point conversion
   GVM_HOST_DEVICE
@@ -657,7 +666,7 @@ struct alignas(1) float_e5m2_t : float8_base<FloatEncoding::E5M2> {
 
   /// Converts to half
   GVM_HOST_DEVICE
-  operator half() const { return to_half(*this); }
+  operator half_float::half() const { return to_half(*this); }
 
   /// Converts to float
   GVM_HOST_DEVICE
