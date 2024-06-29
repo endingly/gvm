@@ -1,8 +1,10 @@
 file(GLOB_RECURSE core_sources "src/*.cpp")
 file(GLOB_RECURSE core_test_sources "test/*.cpp")
 
+find_package(fmt CONFIG REQUIRED)
 add_library(core ${core_sources})
 target_include_directories(core PUBLIC include)
+target_link_libraries(core fmt::fmt)
 
 
 if(BUILD_TESTING)
