@@ -2,8 +2,8 @@
     "version": 2,
     "configurePresets": [
         {
-            "name": "mingw_x64_gcc_13.2",
-            "displayName": "GCC 13.2.0 x86_64-w64-mingw32 (ucrt64)",
+            "name": "mingw_x64_gcc_",
+            "displayName": "GCC x86_64-w64-mingw32 (ucrt64)",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {
@@ -16,8 +16,8 @@
             }
         },
         {
-            "name": "ubuntu_x64_gcc_11.2",
-            "displayName": "GCC 11.4.0 x86_64-linux-gnu",
+            "name": "ubuntu_x64_gcc",
+            "displayName": "GCC x86_64-linux-gnu",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {

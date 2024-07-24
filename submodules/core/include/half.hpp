@@ -4584,6 +4584,9 @@ namespace half_float
 	/// \}
 }
 
+namespace gvm {
+	using float16 = half_float::half;
+};
 
 #undef HALF_UNUSED_NOERR
 #undef HALF_CONSTEXPR
