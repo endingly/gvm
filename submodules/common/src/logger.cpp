@@ -5,13 +5,13 @@
 
 namespace gvm {
 
-void init_log_system() {
-  FLAGS_log_dir         = "./logs";
+void Logger::init_log_system() {
+  google::InitGoogleLogging("gvm");
+  // FLAGS_log_dir         = "./logs";
   FLAGS_alsologtostderr = true;
   FLAGS_minloglevel     = google::GLOG_INFO;
-  google::InitGoogleLogging(__argv[0]);
 }
 
-void log_console(const char* message) { LOG(INFO) << message; }
+void Logger::log_console(const char* message) { LOG(INFO) << message; }
 
 };  // namespace gvm
