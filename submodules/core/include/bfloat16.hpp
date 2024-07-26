@@ -74,9 +74,9 @@ inline bool operator==(bfloat16_t a, bfloat16_t b) {
   return static_cast<float>(a) == static_cast<float>(b);
 }
 
-inline bool     operator<=(bfloat16_t a, bfloat16_t b) { return !(a > b); }
-inline bool     operator>=(bfloat16_t a, bfloat16_t b) { return !(a < b); }
-inline bool     operator!=(bfloat16_t a, bfloat16_t b) { return !(a == b); }
+inline bool       operator<=(bfloat16_t a, bfloat16_t b) { return !(a > b); }
+inline bool       operator>=(bfloat16_t a, bfloat16_t b) { return !(a < b); }
+inline bool       operator!=(bfloat16_t a, bfloat16_t b) { return !(a == b); }
 inline bfloat16_t operator+=(bfloat16_t& a, bfloat16_t b) { return a = a + b; }
 inline bfloat16_t operator-=(bfloat16_t& a, bfloat16_t b) { return a = a - b; }
 inline bfloat16_t operator*=(bfloat16_t& a, bfloat16_t b) { return a = a * b; }
@@ -126,15 +126,16 @@ inline gvm::bfloat16_t real(const gvm::bfloat16_t& x) { return x; }
 
 namespace fmt {
 template <>
-struct formatter<gvm::bfloat16_t> {
+struct formatter<gvm::bfloat16_t> : fmt::formatter<float> {
   template <typename ParseContext>
   constexpr auto parse(ParseContext& ctx) {
-    return ctx.begin();
+    return fmt::formatter<float>::parse(ctx);
   }
 
   template <typename FormatContext>
   constexpr auto format(const gvm::bfloat16_t& x, FormatContext& ctx) {
-    return fmt::format_to(ctx.out(), "{}", float(x));
+    auto f = static_cast<float>(x);
+    return fmt::formatter<float>::format(f, ctx);
   }
 };
 };  // namespace fmt

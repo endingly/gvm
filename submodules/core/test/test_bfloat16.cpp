@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
 
 #include "bfloat16.hpp"
+#include "half.hpp"
 using namespace gvm;
 
 TEST(Bfloat16Test, TestConvert) {
   bfloat16_t a = static_cast<bfloat16_t>(1.0f);
-  float    b = static_cast<float>(a);
+  float      b = static_cast<float>(a);
 
   ASSERT_EQ(b, 1.0f);
 }
@@ -42,11 +43,16 @@ TEST(Bfloat16Test, TestSImplConvet) {
   bfloat16_t a(1.0f);
   bfloat16_t b(2.0f);
   bfloat16_t c = a + b;
-  float    d = static_cast<float>(c);
+  float      d = static_cast<float>(c);
   ASSERT_EQ(d, 3.0f);
 }
 
 TEST(Bfloat16Test, TestFmt) {
   bfloat16_t a(1.0f);
-  fmt::println("{}", a);
+  fmt::println("{:.2f} {:.3f}", a, a);
+}
+
+TEST(Float16Test, TestFmt) {
+  gvm::float16_t a(1.0f);
+  fmt::println("{:.2f} {:.3f}", a, a);
 }
