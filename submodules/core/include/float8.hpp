@@ -46,6 +46,8 @@
 //
 // Standard Library headers belong here to avoid conflicts with NVRTC.
 //
+#include <fmt/format.h>
+
 #include <cmath>
 #include <cstdint>
 #include <cstring>
@@ -1217,3 +1219,34 @@ gvm::float_e5m2_t operator"" _fe5m2(unsigned long long int x) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
+
+/// libfmt support
+
+namespace fmt {
+template <>
+struct formatter<gvm::float_e4m3_t> : fmt::formatter<float> {
+  template <typename ParseContext>
+  constexpr auto parse(ParseContext& ctx) {
+    return fmt::formatter<float>::parse(ctx);
+  }
+
+  template <typename FormatContext>
+  auto format(const gvm::float_e4m3_t& value, FormatContext& ctx) {
+    return fmt::formatter<float>::format(float(value), ctx);
+  }
+};
+
+template <>
+struct formatter<gvm::float_e5m2_t> : fmt::formatter<float> {
+  template <typename ParseContext>
+  constexpr auto parse(ParseContext& ctx) {
+    return fmt::formatter<float>::parse(ctx);
+  }
+
+  template <typename FormatContext>
+  auto format(const gvm::float_e5m2_t& value, FormatContext& ctx) {
+    return fmt::formatter<float>::format(float(value), ctx);
+  }
+};
+
+};  // namespace fmt

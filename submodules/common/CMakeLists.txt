@@ -1,10 +1,13 @@
 file(GLOB_RECURSE common_src "src/*.cpp")
 file(GLOB_RECURSE common_test_src "test/*.cpp")
 
-find_package(glog CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 add_library(common ${common_src})
 target_include_directories(common PUBLIC include)
-target_link_libraries(common PRIVATE glog::glog)
+target_link_libraries(common PRIVATE fmt::fmt)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(common PUBLIC GVM_DEBUG)
+endif()
 
 if(BUILD_TESTING)
     add_executable(common_test ${common_test_src})

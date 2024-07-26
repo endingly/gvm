@@ -2,22 +2,22 @@
     "version": 2,
     "configurePresets": [
         {
-            "name": "mingw_x64_gcc_13.2",
-            "displayName": "GCC 13.2.0 x86_64-w64-mingw32 (ucrt64)",
+            "name": "mingw_x64_gcc",
+            "displayName": "GCC x86_64-w64-mingw32 (ucrt64)",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
-                "CMAKE_C_COMPILER": "C:/Users/m00980/code_tools/msys64/ucrt64/bin/gcc.exe",
-                "CMAKE_CXX_COMPILER": "C:/Users/m00980/code_tools/msys64/ucrt64/bin/g++.exe",
+                "CMAKE_C_COMPILER": "gcc.exe",
+                "CMAKE_CXX_COMPILER": "g++.exe",
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "VCPKG_TARGET_TRIPLET": "x64-mingw-dynamic"
             }
         },
         {
-            "name": "ubuntu_x64_gcc_11.2",
-            "displayName": "GCC 11.4.0 x86_64-linux-gnu",
+            "name": "ubuntu_x64_gcc",
+            "displayName": "GCC x86_64-linux-gnu",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {

@@ -6,7 +6,6 @@
   "description": "emulator for microGPU",
   "dependencies": [
     "gtest",
-    "glog",
     "elfio",
     "fmt"
   ]
