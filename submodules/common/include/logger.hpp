@@ -35,28 +35,24 @@ namespace fmt {
 
 template <>
 struct formatter<gvm::LogLevel> : fmt::formatter<std::string> {
-  template <typename ParseContext>
-  constexpr auto parse(ParseContext& ctx) -> decltype(ctx.begin()) {
-    return fmt::formatter<std::string>::parse(ctx);
-  }
-  template <typename FormatContext>
-  constexpr auto format(gvm::LogLevel level, FormatContext& ctx) {
+  auto format(gvm::LogLevel   level,
+              format_context& ctx) const -> format_context::iterator {
     std::string level_str;
     switch (level) {
       case gvm::LogLevel::Debug:
-        level_str = fmt::format("{}", "Debug");
+        level_str = "Debug";
         break;
       case gvm::LogLevel::Info:
-        level_str = fmt::format("{}", "Info");
+        level_str = "Info";
         break;
       case gvm::LogLevel::Warning:
-        level_str = fmt::format("{}", "Warning");
+        level_str = "Warning";
         break;
       case gvm::LogLevel::Error:
-        level_str = fmt::format("{}", "Error");
+        level_str = "Error";
         break;
       default:
-        level_str = fmt::format("{}", "Unknown");
+        level_str = "Unknown";
     }
     return fmt::formatter<std::string>::format(level_str, ctx);
   }

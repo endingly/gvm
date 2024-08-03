@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26.0)
+cmake_minimum_required(VERSION 3.30)
 
 project(gvm VERSION 0.0.1 LANGUAGES C CXX ASM)
 

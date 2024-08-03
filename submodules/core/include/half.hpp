@@ -5431,13 +5431,8 @@ using float16_t = half_float::half;
 namespace fmt {
 template <>
 struct formatter<gvm::float16_t> : fmt::formatter<float> {
-  template <typename ParseContext>
-  constexpr auto parse(ParseContext &ctx) {
-    return fmt::formatter<float>::parse(ctx);
-  }
-
-  template <typename FormatContext>
-  auto format(const gvm::float16_t &h, FormatContext &ctx) {
+  auto format(const gvm::float16_t &h,
+              format_context       &ctx) const -> format_context::iterator {
     return fmt::formatter<float>::format(static_cast<float>(h), ctx);
   }
 };

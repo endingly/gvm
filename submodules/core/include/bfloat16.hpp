@@ -127,13 +127,8 @@ inline gvm::bfloat16_t real(const gvm::bfloat16_t& x) { return x; }
 namespace fmt {
 template <>
 struct formatter<gvm::bfloat16_t> : fmt::formatter<float> {
-  template <typename ParseContext>
-  constexpr auto parse(ParseContext& ctx) {
-    return fmt::formatter<float>::parse(ctx);
-  }
-
-  template <typename FormatContext>
-  constexpr auto format(const gvm::bfloat16_t& x, FormatContext& ctx) {
+  auto format(const gvm::bfloat16_t& x,
+              format_context&        ctx) const -> format_context::iterator {
     auto f = static_cast<float>(x);
     return fmt::formatter<float>::format(f, ctx);
   }

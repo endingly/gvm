@@ -10,8 +10,8 @@ gvm::LogConfig gvm::Logger::config;
 namespace gvm {
 inline void Logger::write_log(LogLevel level, const std::string& message) {
   std::time_t t = std::time(nullptr);
-  auto s = fmt::format("[{:%Y-%m-%d}][{:^7}] {}", fmt::localtime(t), level,
-                       message);
+  auto        s =
+      fmt::format("[{:%Y-%m-%d}][{:^7}] {}", fmt::localtime(t), level, message);
   if (config.output_type == LogOutputType::Both ||
       config.output_type == LogOutputType::Console)
     std::cout << s << "\n";
