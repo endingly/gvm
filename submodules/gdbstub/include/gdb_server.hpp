@@ -19,14 +19,12 @@ int  gdb_sys_step(struct gdb_state *state);
 
 /// @brief GDB buffer structure
 struct GdbBuffer {
-  boost::circular_buffer<uint8_t> buffer;
-  int32_t                         write_pos;
-  int32_t                         read_pos;
+  boost::circular_buffer<char> buffer;
+  int32_t                      write_pos;
+  int32_t                      read_pos;
 
   GdbBuffer()
-      : buffer(boost::circular_buffer<uint8_t>(512)),
-        write_pos(0),
-        read_pos(0) {}
+      : buffer(boost::circular_buffer<char>(512)), write_pos(0), read_pos(0) {}
 };
 
 /// @brief GDB state structure
@@ -49,8 +47,17 @@ class GdbServer {
  public:
   GdbServer();
   ~GdbServer() = default;
-  int write_buffer(const std::vector<uint8_t> &data);
-  int read_buffer(std::vector<uint8_t> &data);
+  /// @brief write data to the output buffer
+  /// @param data data to write
+  /// @return number of bytes written
+  int write_buffer(const std::vector<char> &data);
+  /// @brief read data from the input buffer
+  /// @return data read
+  char read_buffer();
+  /// @brief read data from the input buffer
+  /// @param count number of bytes to read
+  /// @return data read
+  std::optional<std::vector<char>> read_buffer(int count);
 };
 
 };  // namespace gvm::gdb
