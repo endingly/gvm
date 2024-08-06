@@ -20,7 +20,9 @@ int GdbServer::write_buffer(const std::vector<char>& data) {
   return data.size();
 }
 
-char GdbServer::read_buffer() {
+std::optional<char> GdbServer::read_buffer() {
+  if (input.buffer.empty())
+    return std::nullopt;
   auto result = input.buffer.front();
   input.buffer.pop_front();
   return result;

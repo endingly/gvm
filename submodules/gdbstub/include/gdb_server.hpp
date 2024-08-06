@@ -53,7 +53,7 @@ class GdbServer {
   int write_buffer(const std::vector<char> &data);
   /// @brief read data from the input buffer
   /// @return data read
-  char read_buffer();
+  std::optional<char> read_buffer();
   /// @brief read data from the input buffer
   /// @param count number of bytes to read
   /// @return data read

@@ -22,6 +22,7 @@ class Logger {
   ~Logger() = delete;
 
  public:
+  static void init_log_system();
   static void init_log_system(const LogConfig& conf);
   static void info(const std::string& message);
   static void debug(const std::string& message);

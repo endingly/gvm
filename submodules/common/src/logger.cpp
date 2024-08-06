@@ -23,6 +23,10 @@ inline void Logger::write_log(LogLevel level, const std::string& message) {
   }
 }
 
+void Logger::init_log_system() {
+  config = LogConfig();
+}
+
 void Logger::init_log_system(const LogConfig& conf) {
   config.level       = conf.level;
   config.output_path = conf.output_path;
