@@ -2,10 +2,11 @@
 
 #include <fmt/chrono.h>
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
-gvm::LogConfig gvm::Logger::config;
+gvm::LogConfig gvm::Logger::config = gvm::LogConfig();
 
 namespace gvm {
 inline void Logger::write_log(LogLevel level, const std::string& message) {
@@ -17,14 +18,13 @@ inline void Logger::write_log(LogLevel level, const std::string& message) {
     std::cout << s << "\n";
   if (config.output_type == LogOutputType::Both ||
       config.output_type == LogOutputType::File) {
-    std::ofstream ofs(config.output_path, std::ios::app);
+    if (!std::filesystem::exists(config.output_path))
+      std::filesystem::create_directory(config.output_path);
+    // [ ]: add log file name
+    std::ofstream ofs(config.output_path + "unkown.log", std::ios::app);
     ofs << s << "\n";
     ofs.close();
   }
-}
-
-void Logger::init_log_system() {
-  config = LogConfig();
 }
 
 void Logger::init_log_system(const LogConfig& conf) {

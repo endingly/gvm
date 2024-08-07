@@ -16,13 +16,12 @@ struct LogConfig {
 
 class Logger {
  private:
-  static LogConfig   config;
+  static LogConfig config;
   inline static void write_log(LogLevel level, const std::string& message);
   Logger()  = delete;
   ~Logger() = delete;
 
  public:
-  static void init_log_system();
   static void init_log_system(const LogConfig& conf);
   static void info(const std::string& message);
   static void debug(const std::string& message);
