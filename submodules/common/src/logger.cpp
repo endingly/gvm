@@ -38,9 +38,7 @@ void Logger::info(const std::string& message) {
 }
 
 void Logger::debug(const std::string& message) {
-#ifdef GVM_DEBUG
-  write_log(LogLevel::Debug, message);
-#endif
+  if constexpr (GVM_DEBUG) write_log(LogLevel::Debug, message);
 }
 
 void Logger::warning(const std::string& message) {
