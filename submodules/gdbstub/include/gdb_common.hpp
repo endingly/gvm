@@ -1,10 +1,12 @@
 #pragma once
 #include <cstdint>
+#include <vector>
 
 namespace gvm::gdb {
 
-using address         = uint32_t;
-using reg             = uint32_t;
-constexpr int GDB_EOF = -1;
+using Address      = uint32_t;
+using Reg          = uint32_t;
+using GdbPackage   = std::vector<char>;
+using ByteSequence = std::vector<uint8_t>;
 
 }  // namespace gvm::gdb
