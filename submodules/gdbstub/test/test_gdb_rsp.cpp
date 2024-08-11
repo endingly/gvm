@@ -6,9 +6,9 @@
 TEST(GdbRsp, Test_get_ack_status) {
   using namespace gvm::gdb;
   char s = '+';
-  EXPECT_EQ(RspHelper::get_ack_status(s), RspClientStatus::Ok);
+  EXPECT_EQ(GdbRspImp::get_ack_status(s), RspClientStatus::Ok);
   s = '-';
-  EXPECT_EQ(RspHelper::get_ack_status(s), RspClientStatus::NotReceived);
+  EXPECT_EQ(GdbRspImp::get_ack_status(s), RspClientStatus::NotReceived);
   s = '0';
-  EXPECT_EQ(RspHelper::get_ack_status(s), RspClientStatus::Error);
+  EXPECT_EQ(GdbRspImp::get_ack_status(s), RspClientStatus::Error);
 }

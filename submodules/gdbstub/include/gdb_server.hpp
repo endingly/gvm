@@ -12,8 +12,8 @@ int  gdb_main(struct gdb_state *state);
 void gdb_sys_init(void);
 int  gdb_sys_getc(struct gdb_state *state);
 int  gdb_sys_putchar(struct gdb_state *state, int ch);
-int  gdb_sys_mem_readb(struct gdb_state *state, address addr, char *val);
-int  gdb_sys_mem_writeb(struct gdb_state *state, address addr, char val);
+int  gdb_sys_mem_readb(struct gdb_state *state, Address addr, char *val);
+int  gdb_sys_mem_writeb(struct gdb_state *state, Address addr, char val);
 int  gdb_sys_continue(struct gdb_state *state);
 int  gdb_sys_step(struct gdb_state *state);
 
@@ -30,7 +30,7 @@ struct GdbBuffer {
 /// @brief GDB state structure
 struct GdbState {
   int signum;
-  reg regs[GDB_REG_NUM];
+  Reg regs[GDB_REG_NUM];
 
   GdbState() = default;
 };
