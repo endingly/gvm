@@ -2,11 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "gvm",
   "version": "0.0.1",
-  "builtin-baseline": "6c296b954ceea3d7fd1b677b9e575902b2fc5130",
   "description": "emulator for microGPU",
+  "builtin-baseline": "fe1cde61e971d53c9687cf9a46308f8f55da19fa",
   "dependencies": [
     "gtest",
     "elfio",
-    "fmt"
+    "fmt",
+    "boost-circular-buffer"
   ]
 }
