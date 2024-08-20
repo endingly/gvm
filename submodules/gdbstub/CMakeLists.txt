@@ -1,3 +1,4 @@
+# TODO: GDB support is not yet implemented in this project.
 find_package(Boost REQUIRED COMPONENTS circular_buffer)
 file(GLOB_RECURSE GDBSTUB_SOURCES "src/*.cpp")
 add_library(gdbstub STATIC ${GDBSTUB_SOURCES})

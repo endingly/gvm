@@ -11,4 +11,4 @@ option(BUILD_TESTING "Build tests" ON)
 
 add_subdirectory(submodules/core)
 add_subdirectory(submodules/common)
-add_subdirectory(submodules/gdbstub)
+# add_subdirectory(submodules/gdbstub)
