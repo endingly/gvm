@@ -1,3 +1,10 @@
-file(GLOB_RECURSE backend_sources "src/*.cpp")
-add_library(backend ${backend_sources})
+file(GLOB_RECURSE BACKEND_SOURCES "src/*.cpp")
+add_library(backend ${BACKEND_SOURCES})
 target_include_directories(backend PUBLIC include)
+
+if(BUILD_TESTING)
+    find_package(GTest CONFIG REQUIRED)
+    file(GLOB_RECURSE BACKEND_TEST_SOURCES "test/*.cpp")
+    add_executable(backend_test ${BACKEND_TEST_SOURCES})
+    target_link_libraries(backend_test backend GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
+endif()
